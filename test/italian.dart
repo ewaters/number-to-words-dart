@@ -6,6 +6,10 @@ void main() {
     Map<int, String> examples = {
       0: 'zero',
       10: 'dieci',
+      11: 'undici',
+      21: 'ventuno',
+      22: 'ventidue',
+      28: 'ventotto',
       123: 'cento ventitre',
     };
     for (final pair in examples.entries) {

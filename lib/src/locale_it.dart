@@ -6,7 +6,7 @@ import 'utility.dart';
 // https://github.com/moul/number-to-words/blob/master/it-it.go.
 
 class Italian extends NumberToWordInterface {
-  static final List<String> italianMegas = [
+  static final List<String> _megas = [
     "",
     "mille",
     "milione",
@@ -20,7 +20,7 @@ class Italian extends NumberToWordInterface {
     "nonillion",
     "decillion"
   ];
-  static final List<String> italianUnits = [
+  static final List<String> _units = [
     "",
     "uno",
     "due",
@@ -32,7 +32,7 @@ class Italian extends NumberToWordInterface {
     "otto",
     "nove"
   ];
-  static final List<String> italianTens = [
+  static final List<String> _tens = [
     "",
     "dieci",
     "venti",
@@ -44,7 +44,7 @@ class Italian extends NumberToWordInterface {
     "ottanta",
     "novanta"
   ];
-  static final List<String> italianTeens = [
+  static final List<String> _teens = [
     "dieci",
     "undici",
     "dodici",
@@ -98,34 +98,45 @@ class Italian extends NumberToWordInterface {
           words.add('cento');
           break;
         default:
-          words.add('${italianUnits[hundreds]}cento');
+          words.add('${_units[hundreds]}cento');
           break;
       }
 
       if (tens != 0 || units != 0) {
         switch (tens) {
           case 0:
-            words.add(italianUnits[units]);
+            words.add(_units[units]);
             break;
           case 1:
-            words.add(italianTeens[units]);
+            words.add(_teens[units]);
             break;
           default:
             if (units > 0) {
-              words.add(italianTens[tens] + italianUnits[units]);
+              words.add(_joinWords(_tens[tens], _units[units]));
             } else {
-              words.add(italianTens[tens]);
+              words.add(_tens[tens]);
             }
             break;
         }
       }
 
-      final mega = italianMegas[idx];
+      final mega = _megas[idx];
       if (mega.isNotEmpty) {
         words.add(mega);
       }
     }
 
     return words.join(' ');
+  }
+
+  bool _endsInVowel(String text) => RegExp(r'[aeiou]$').hasMatch(text);
+
+  bool _startsWithVowel(String text) => RegExp('^[aeiou]').hasMatch(text);
+
+  String _joinWords(String left, String right) {
+    if (_endsInVowel(left) && _startsWithVowel(right)) {
+      return left.substring(0, left.length - 1) + right;
+    }
+    return left + right;
   }
 }
