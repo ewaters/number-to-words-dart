@@ -1,3 +1,4 @@
+import 'package:number_to_words/src/convert_interface.dart';
 import 'package:number_to_words/number_to_words.dart';
 import 'package:test/test.dart';
 
@@ -38,6 +39,20 @@ void main() {
     };
     for (final pair in examples.entries) {
       expect(NumberToWords.integerToOrdinal(pair.key, 'it'), equals(pair.value),
+          reason: '${pair.key}');
+    }
+  });
+
+  test('Italian fractions to words', () {
+    Map<Fraction, String> examples = {
+      Fraction(1, 4): 'un quarto',
+      Fraction(2, 5): 'due quinti',
+    };
+    for (final pair in examples.entries) {
+      expect(
+          NumberToWords.fractionToWords(
+              pair.key.numerator, pair.key.denominator, 'it'),
+          equals(pair.value),
           reason: '${pair.key}');
     }
   });

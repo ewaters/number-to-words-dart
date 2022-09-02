@@ -1,6 +1,7 @@
 import 'package:number_to_words/src/convert_interface.dart';
 import 'package:number_to_words/src/italian/integer_to_words.dart';
 import 'package:number_to_words/src/italian/integer_to_ordinal.dart';
+import 'package:number_to_words/src/italian/fraction_to_words.dart';
 
 class Italian extends NumberToWordInterface {
   @override
@@ -16,8 +17,8 @@ class Italian extends NumberToWordInterface {
   }
 
   @override
-  String fractionToWords(int numerator, int denominator) {
-    assertValidFraction(numerator, denominator);
-    throw 'unimplemented';
+  String fractionToWords(Fraction fraction) {
+    assertValidFraction(fraction);
+    return fractionToWordsImpl(fraction);
   }
 }

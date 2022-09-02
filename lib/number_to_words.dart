@@ -28,7 +28,7 @@ class NumberToWords {
     throw UnknownLocale(locale);
   }
 
-  /// Convert the given integer [number] to words in the [locale].
+  /// Convert the given integer [number] to cardnial words in the [locale].
   ///
   /// If the locale is not handled, throws [UnknownLocale].
   static String integerToWords(int number, String locale) =>
@@ -39,4 +39,13 @@ class NumberToWords {
   /// If the locale is not handled, throws [UnknownLocale].
   static String integerToOrdinal(int number, String locale) =>
       _converterForLocale(locale).integerToOrdinal(number);
+
+  /// Convert the given fraction [numerator]/[denominator] to a string in the
+  /// [locale].
+  ///
+  /// If the locale is not handled, throws [UnknownLocale].
+  static String fractionToWords(
+          int numerator, int denominator, String locale) =>
+      _converterForLocale(locale)
+          .fractionToWords(Fraction(numerator, denominator));
 }

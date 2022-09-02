@@ -16,3 +16,14 @@ String joinWithApocope(String left, String right) {
   }
   return left + right;
 }
+
+String pluralize(String singular) {
+  final base = singular.substring(0, singular.length - 1);
+  if (singular.endsWith('o')) {
+    return '${base}i';
+  }
+  if (singular.endsWith('a')) {
+    return '${base}e';
+  }
+  throw 'No known way to pluralize "$singular"';
+}

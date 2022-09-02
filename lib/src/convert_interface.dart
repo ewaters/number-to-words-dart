@@ -1,12 +1,26 @@
+class Fraction {
+  final int numerator;
+  final int denominator;
+  Fraction(this.numerator, this.denominator);
+}
+
 /// The common class for all number-to-word conversion classes.
 abstract class NumberToWordInterface {
   /// A set of locales for this class.
   Set<String> get locales;
 
-  /// Converts [number] to a string.
+  /// Returns true if the given locale string should be handled by this class.
+  bool matchesLocale(String locale) {
+    if (locales.contains(locale) || locales.contains(locale.toLowerCase())) {
+      return true;
+    }
+    return false;
+  }
+
+  /// Converts [number] to a cardinal number string.
   String integerToWords(int number);
 
-  /// Converts [number] to an ordinal string.
+  /// Converts [number] to an ordinal number string.
   String integerToOrdinal(int number);
 
   /// Checks if the parameters are valid for calling [integerToOrdinal]. Throws
@@ -17,23 +31,15 @@ abstract class NumberToWordInterface {
     }
   }
 
-  /// Converts the fraction indicated by [numerator] and [denominator] to a
+  /// Converts the fraction indicated by [fraction] to a
   /// string.
-  String fractionToWords(int numerator, int denominator);
+  String fractionToWords(Fraction fraction);
 
   /// Checks if the parameters are valid for calling [fractionToWords]. Throws
   /// if otherwise.
-  void assertValidFraction(int numerator, int denominator) {
-    if (denominator <= 0) {
-      throw 'Denominator $denominator must be greater than 0';
+  void assertValidFraction(Fraction fraction) {
+    if (fraction.denominator <= 0) {
+      throw 'Denominator ${fraction.denominator} must be greater than 0';
     }
-  }
-
-  /// Returns true if the given locale string should be handled by this class.
-  bool matchesLocale(String locale) {
-    if (locales.contains(locale) || locales.contains(locale.toLowerCase())) {
-      return true;
-    }
-    return false;
   }
 }
