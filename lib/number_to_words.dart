@@ -1,5 +1,5 @@
-import 'src/convert_interface.dart';
-import 'src/locale_it.dart';
+import 'package:number_to_words/src/convert_interface.dart';
+import 'package:number_to_words/src/italian/convert.dart';
 
 /// An unknown locale was seen.
 class UnknownLocale {

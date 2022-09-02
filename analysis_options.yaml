@@ -12,3 +12,4 @@ linter:
     comment_references: true
     lines_longer_than_80_chars: true
     prefer_interpolation_to_compose_strings: false
+    always_use_package_imports: true
