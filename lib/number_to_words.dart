@@ -33,4 +33,10 @@ class NumberToWords {
   /// If the locale is not handled, throws [UnknownLocale].
   static String integerToWords(int number, String locale) =>
       _converterForLocale(locale).integerToWords(number);
+
+  /// Convert the given integer [number] to an ordinal string in the [locale].
+  ///
+  /// If the locale is not handled, throws [UnknownLocale].
+  static String integerToOrdinal(int number, String locale) =>
+      _converterForLocale(locale).integerToOrdinal(number);
 }
