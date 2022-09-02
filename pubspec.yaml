@@ -1,0 +1,10 @@
+name: number_to_words
+version: 0.0.0
+publish_to: none
+
+environment:
+  sdk: ">=2.13.0 <4.0.0"
+
+dev_dependencies:
+  test: any
+dependencies: {lints: ^2.0.0}
