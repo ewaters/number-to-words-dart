@@ -4,7 +4,7 @@ import 'package:number_to_words/src/italian/utility.dart';
 // This code adapted from
 // https://github.com/moul/number-to-words/blob/master/it-it.go.
 
-final List<String> _megas = [
+final List<String> _scales = [
   "",
   "mille", // thousand
   "milione", // million
@@ -12,7 +12,7 @@ final List<String> _megas = [
   "bilione", // trillion
   "biliardo", // quadrillion
 ];
-final List<String> _megasPlural = [
+final List<String> _scalesPlural = [
   "",
   "mila",
   "milioni",
@@ -59,10 +59,10 @@ final List<String> _teens = [
 ];
 
 String integerToWordsImpl(int number) {
-  List<String> words = [];
+  final buf = StringBuffer();
 
   if (number < 0) {
-    words.add("meno");
+    buf.write("meno ");
     number *= -1;
   }
 
@@ -77,64 +77,90 @@ String integerToWordsImpl(int number) {
   // iterate over triplets
   for (var idx = triplets.length - 1; idx >= 0; idx--) {
     final triplet = triplets[idx];
+    buf.write(_processTriplet(triplet, idx));
 
-    if (triplet == 1 && idx == 1) {
-      // Special case: "mille" is written without 'uno' in front of it.
-      words.add(_megas[idx]);
-      continue;
-    }
-
-    // nothing todo for empty triplet
-    if (triplet == 0) {
-      continue;
-    }
-
-    // three-digits
-    final hundreds = triplet ~/ 100 % 10;
-    final tens = triplet ~/ 10 % 10;
-    final units = triplet % 10;
-    // print('hundreds: $hundreds, tens: $tens, units: $units');
-    switch (hundreds) {
-      case 0:
-        break;
-      case 1:
-        words.add('cento');
-        break;
-      default:
-        words.add('${_units[hundreds]}cento');
-        break;
-    }
-
-    if (tens != 0 || units != 0) {
-      switch (tens) {
-        case 0:
-          words.add(_units[units]);
-          break;
-        case 1:
-          words.add(_teens[units]);
-          break;
-        default:
-          if (units > 0) {
-            words.add(joinWithApocope(_tens[tens], _units[units]));
-          } else {
-            words.add(_tens[tens]);
-          }
-          break;
+    // From https://www.languagesandnumbers.com/how-to-count-in-italian/en/ita/:
+    // Numbers are grouped in words of three digits, with a space added after
+    // the word for thousand if its multiplier is greater than one hundred and
+    // does not end with a double zero.
+    // e.g. duemilatrecentoquarantacinque [2,345]
+    //      seicentomiladue [600,002]
+    //      settecentosessantacinquemila duecento [765,200]
+    bool addSpace = idx > 0;
+    if (idx == 1) {
+      if (triplet >= 100 && !'$triplet'.endsWith('00')) {
+        addSpace = true;
+      } else {
+        addSpace = false;
       }
     }
+    if (addSpace) {
+      buf.write(' ');
+    }
+  }
+  return buf.toString().trim();
+}
 
-    final mega = triplet > 1 ? _megasPlural[idx] : _megas[idx];
-    if (mega.isNotEmpty) {
-      words.add(mega);
+String _processTriplet(int triplet, int idx) {
+  final words = <String>[];
+
+  if (triplet == 1) {
+    if (idx == 1) {
+      // Special case: "mille" is written without 'uno' in front of it.
+      return _scales[idx];
+    } else if (idx > 1) {
+      // Uno becomes un before all other scale names.
+      return 'un ${_scales[idx]}';
     }
   }
 
-  // From https://www.languagesandnumbers.com/how-to-count-in-italian/en/ita/:
-  // Numbers are grouped in words of three digits, with a space added after
-  // the word for thousand if its multiplier is greater than one hundred and
-  // does not end with a double zero.
-  // e.g. duemilatrecentoquarantacinque [2,345]
-  //      seicentomiladue [600,002]
-  //      settecentosessantacinquemila duecento [765,200]
+  // nothing todo for empty triplet
+  if (triplet == 0) {
+    return '';
+  }
+
+  // three-digits
+  final hundreds = triplet ~/ 100 % 10;
+  final tens = triplet ~/ 10 % 10;
+  final units = triplet % 10;
+  // print('hundreds: $hundreds, tens: $tens, units: $units');
+  switch (hundreds) {
+    case 0:
+      break;
+    case 1:
+      words.add('cento');
+      break;
+    default:
+      words.add('${_units[hundreds]}cento');
+      break;
+  }
+
+  if (tens != 0 || units != 0) {
+    switch (tens) {
+      case 0:
+        words.add(_units[units]);
+        break;
+      case 1:
+        words.add(_teens[units]);
+        break;
+      default:
+        if (units > 0) {
+          words.add(joinWithApocope(_tens[tens], _units[units]));
+        } else {
+          words.add(_tens[tens]);
+        }
+        break;
+    }
+  }
+
+  final scale = triplet > 1 ? _scalesPlural[idx] : _scales[idx];
+  if (scale.isNotEmpty) {
+    if (idx > 1) {
+      // 'due milioni' but 'duemila'
+      words.add(' $scale');
+    } else {
+      words.add(scale);
+    }
+  }
   return words.join('');
 }

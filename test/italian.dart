@@ -17,6 +17,8 @@ void main() {
       2345: 'duemilatrecentoquarantacinque',
       600002: 'seicentomiladue',
       765200: 'settecentosessantacinquemila duecento',
+      1000000: 'un milione',
+      2000000: 'due milioni',
     };
     for (final pair in examples.entries) {
       expect(NumberToWords.integerToWords(pair.key, 'it'), equals(pair.value),
