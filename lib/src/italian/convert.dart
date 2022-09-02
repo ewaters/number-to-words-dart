@@ -17,6 +17,12 @@ class Italian extends NumberToWordInterface {
   }
 
   @override
+  String integerToOrdinalShort(int number) {
+    assertValidOrdinal(number);
+    return '$number°';
+  }
+
+  @override
   String fractionToWords(Fraction fraction) {
     assertValidFraction(fraction);
     return fractionToWordsImpl(fraction);

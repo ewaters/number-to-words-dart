@@ -20,8 +20,11 @@ abstract class NumberToWordInterface {
   /// Converts [number] to a cardinal number string.
   String integerToWords(int number);
 
-  /// Converts [number] to an ordinal number string.
+  /// Converts [number] to an ordinal number string ('first').
   String integerToOrdinal(int number);
+
+  /// Converts [number] to a short ordinal string ('1st').
+  String integerToOrdinalShort(int number);
 
   /// Checks if the parameters are valid for calling [integerToOrdinal]. Throws
   /// if otherwise.

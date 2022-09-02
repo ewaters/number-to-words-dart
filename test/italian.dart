@@ -43,6 +43,17 @@ void main() {
     }
   });
 
+  test('Italian integer to short ordinal', () {
+    Map<int, String> examples = {
+      6: '6°',
+    };
+    for (final pair in examples.entries) {
+      expect(NumberToWords.integerToOrdinalShort(pair.key, 'it'),
+          equals(pair.value),
+          reason: '${pair.key}');
+    }
+  });
+
   test('Italian fractions to words', () {
     Map<Fraction, String> examples = {
       Fraction(1, 4): 'un quarto',

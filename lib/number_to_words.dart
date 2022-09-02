@@ -1,5 +1,6 @@
 import 'package:number_to_words/src/convert_interface.dart';
 import 'package:number_to_words/src/italian/convert.dart';
+import 'package:number_to_words/src/english/convert.dart';
 
 /// An unknown locale was seen.
 class UnknownLocale {
@@ -17,6 +18,7 @@ class UnknownLocale {
 class NumberToWords {
   static final List<NumberToWordInterface> _converters = [
     Italian(),
+    English(),
   ];
 
   static NumberToWordInterface _converterForLocale(String locale) {
@@ -36,9 +38,20 @@ class NumberToWords {
 
   /// Convert the given integer [number] to an ordinal string in the [locale].
   ///
+  /// Example: "first", "secondo"
+  ///
   /// If the locale is not handled, throws [UnknownLocale].
   static String integerToOrdinal(int number, String locale) =>
       _converterForLocale(locale).integerToOrdinal(number);
+
+  /// Convert the given integer [number] to a short ordinal string in the
+  /// [locale].
+  ///
+  /// Example: "1st", "5°"
+  ///
+  /// If the locale is not handled, throws [UnknownLocale].
+  static String integerToOrdinalShort(int number, String locale) =>
+      _converterForLocale(locale).integerToOrdinalShort(number);
 
   /// Convert the given fraction [numerator]/[denominator] to a string in the
   /// [locale].
