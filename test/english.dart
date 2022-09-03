@@ -8,6 +8,9 @@ void main() {
       2: '2nd',
       3: '3rd',
       6: '6th',
+      21: '21st',
+      53: '53rd',
+      72: '72nd',
     };
     for (final pair in examples.entries) {
       expect(NumberToWords.integerToOrdinalShort(pair.key, 'en'),

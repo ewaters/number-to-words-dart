@@ -16,14 +16,15 @@ class English extends NumberToWordInterface {
   @override
   String integerToOrdinalShort(int number) {
     assertValidOrdinal(number);
-    if (number == 1) {
-      return '1st';
-    } else if (number == 2) {
-      return '2nd';
-    } else if (number == 3) {
-      return '3rd';
+    final str = number.toString();
+    if (str.endsWith('1')) {
+      return '${str}st';
+    } else if (str.endsWith('2')) {
+      return '${str}nd';
+    } else if (str.endsWith('3')) {
+      return '${str}rd';
     }
-    return '${number}th';
+    return '${str}th';
   }
 
   @override
