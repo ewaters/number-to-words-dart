@@ -1,6 +1,11 @@
 import 'package:number_to_words/src/convert_interface.dart';
-import 'package:number_to_words/src/italian/convert.dart';
+
+import 'package:number_to_words/src/arabic/convert.dart';
 import 'package:number_to_words/src/english/convert.dart';
+import 'package:number_to_words/src/french/convert.dart';
+import 'package:number_to_words/src/german/convert.dart';
+import 'package:number_to_words/src/italian/convert.dart';
+import 'package:number_to_words/src/spanish/convert.dart';
 
 /// An unknown locale was seen.
 class UnknownLocale {
@@ -17,8 +22,12 @@ class UnknownLocale {
 /// A class with a single static method, [integerToWords].
 class NumberToWords {
   static final List<NumberToWordInterface> _converters = [
-    Italian(),
+    Arabic(),
     English(),
+    French(),
+    German(),
+    Italian(),
+    Spanish(),
   ];
 
   static NumberToWordInterface _converterForLocale(String locale) {
