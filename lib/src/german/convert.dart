@@ -19,7 +19,7 @@ class German extends NumberToWordInterface {
   @override
   String integerToOrdinalShort(int number) {
     assertValidOrdinal(number);
-    return '$number°';
+    return '$number.';
   }
 
   @override

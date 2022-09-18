@@ -7,3 +7,8 @@ List<int> integerToTriplets(int number) {
   }
   return triplets;
 }
+
+/// Makes first letter upper case.
+String upperCaseFirstLetter(String input) {
+  return input.substring(0, 1).toUpperCase() + input.substring(1);
+}

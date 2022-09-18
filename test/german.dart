@@ -18,10 +18,11 @@ void main() {
     }
   });
 
-  /*
   test('Integer to ordinal', () {
     Map<int, String> examples = {
-      6: 'sesto',
+      6: 'sechste',
+      11: 'elfte',
+      21: 'einundzwanzigste',
     };
     for (final pair in examples.entries) {
       expect(
@@ -32,7 +33,7 @@ void main() {
 
   test('Integer to short ordinal', () {
     Map<int, String> examples = {
-      6: '6°',
+      6: '6.',
     };
     for (final pair in examples.entries) {
       expect(NumberToWords.integerToOrdinalShort(pair.key, locale),
@@ -43,8 +44,9 @@ void main() {
 
   test('Fractions to words', () {
     Map<Fraction, String> examples = {
-      Fraction(1, 4): 'un quarto',
-      Fraction(2, 5): 'due quinti',
+      Fraction(1, 2): 'halb',
+      Fraction(1, 4): 'ein Viertel',
+      Fraction(3, 4): 'drei Viertel',
     };
     for (final pair in examples.entries) {
       expect(
@@ -54,5 +56,4 @@ void main() {
           reason: '${pair.key}');
     }
   });
-  */
 }
