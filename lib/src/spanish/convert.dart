@@ -20,6 +20,7 @@ class Spanish extends NumberToWordInterface {
   String integerToOrdinalShort(int number) {
     assertValidOrdinal(number);
     return '$number°';
+    // This is only correct for masculine words.
   }
 
   @override
