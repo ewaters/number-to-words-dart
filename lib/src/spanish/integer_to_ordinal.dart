@@ -1,5 +1,5 @@
 import 'package:number_to_words/src/utility.dart';
-import 'integer_to_words.dart';
+import 'package:number_to_words/src/spanish/integer_to_words.dart';
 
 import 'dart:math';
 

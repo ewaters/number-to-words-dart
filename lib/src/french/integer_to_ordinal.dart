@@ -1,4 +1,4 @@
-import 'integer_to_words.dart';
+import 'package:number_to_words/src/french/integer_to_words.dart';
 
 const _ordinalUnits = [
   "",
