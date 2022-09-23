@@ -19,7 +19,8 @@ class French extends NumberToWordInterface {
   @override
   String integerToOrdinalShort(int number) {
     assertValidOrdinal(number);
-    return '$number°';
+    return '${number}e';
+    // Alternatively, "${number}ème", "${number}°"
   }
 
   @override
