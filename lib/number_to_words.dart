@@ -5,6 +5,7 @@ import 'package:number_to_words/src/english/convert.dart';
 import 'package:number_to_words/src/french/convert.dart';
 import 'package:number_to_words/src/german/convert.dart';
 import 'package:number_to_words/src/italian/convert.dart';
+import 'package:number_to_words/src/korean/convert.dart';
 import 'package:number_to_words/src/spanish/convert.dart';
 
 /// An unknown locale was seen.
@@ -27,6 +28,7 @@ class NumberToWords {
     French(),
     German(),
     Italian(),
+    Korean(),
     Spanish(),
   ];
 
