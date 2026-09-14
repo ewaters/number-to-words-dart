@@ -1,4 +1,5 @@
 import 'package:number_to_words/src/convert_interface.dart';
+import 'package:number_to_words/src/korean/native.dart';
 
 /// Korean converter for Sino-Korean numbers, ordinals, and fractions.
 class Korean extends NumberToWordInterface {
@@ -147,8 +148,8 @@ class Korean extends NumberToWordInterface {
       if (ones == 4) return '$tensPrefix넷째';
       return '$tensPrefix${_nativeOrdinals1To10[ones]}';
     }
-    // For 100+, use [number]번째
-    return '$number번째';
+    // From 100, Sino hundreds with the native ordinal tail: 백 번째, 백한 번째.
+    return KoreanNumbers.nativeOrdinal(number);
   }
 
   @override
